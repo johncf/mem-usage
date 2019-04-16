@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 
 import psutil
+import random
 import time
-from sys import argv
+from sys import argv, stdout
 
 
 def main(pid: int):
-    """prints epoch-time and RSS (in bytes) once every second"""
+    """prints epoch-time, number of processes, and RSS (in bytes) once every second"""
     p = psutil.Process(pid)
     while True:
         rss = get_rss(p)
         if not rss:
             break
+        num_proc = 1
         for c in p.children(True):
             rss += get_rss(c)
-        print(f"{int(time.time())} {rss}")
+            num_proc += 1
+        print(f"{int(time.time())} {num_proc} {rss}")
         time.sleep(1)
+        if random.randint(1, 20) == 1:
+            stdout.flush()
 
 
 def get_rss(proc):
