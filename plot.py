@@ -41,7 +41,7 @@ def main(infile, outfile):
 
     ax3.plot(t[1:], dt, 'r.')
     ax3.set_xlabel('Timestamp')
-    ax3.set_ylabel('Log delay (in seconds)')
+    ax3.set_ylabel('Logging delay (in seconds)')
 
     fig.tight_layout()
     fig.savefig(outfile)
